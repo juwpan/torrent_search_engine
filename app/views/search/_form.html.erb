@@ -1,0 +1,6 @@
+<%= form_with model: @search, url: "/search", method: :post do |form| %>
+  <%= render partial: 'partials/form_errors', locals: { model: @search } %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search", data: { turbo_frame: dom_id(@search) }%>
+<% end %>
