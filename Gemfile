@@ -16,6 +16,10 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "sassc-rails"
 
+gem 'mechanize'
+gem 'will_paginate', '~> 3.3'
+# gem 'rutracker_api'
+
 group :development, :test do
   gem "sqlite3", "~> 1.4"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
