@@ -7,28 +7,24 @@ class SearchController < ApplicationController
   end
   
   def create
-    # if @search_value.present?
-    #   redirect_to search_path(@search_value.first.id)
-    # else
-    #   @search = Search.create_or_find_by(params_search)
-    #   if @search.save
-    #     redirect_to search_path(@search)
-    #   else
-    #     render :new
-    #   end
-    # end
     if @search_value.present?
-      redirect_to search_index_path
+      redirect_to search_path(@search_value.first.id)
     else
-      render :new
+      @search = Search.create_or_find_by(params_search)
+      if @search.save
+        redirect_to search_path(@search)
+      else
+        render :new
+      end
     end
   end
 
   def show
+    @searches = @search.torrent_links.paginate(page: params[:page], per_page: 30)
   end
 
   def index
-    @searches = Search.joins(:torrent_links).select("torrent_links.*").paginate(page: params[:page], per_page: 30)
+    # @searches = Search.joins(:torrent_links).select("torrent_links.*").paginate(page: params[:page], per_page: 30)
   end
 
   private
