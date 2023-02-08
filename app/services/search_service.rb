@@ -17,23 +17,27 @@ class SearchService
                             login_password: 'dedede', login: 'Вход')
 
     url ||= @agent.get(SEARCH_PAGE, nm: value)
-    page_code(url, value)
 
-    save_bd(page_code(url, value), id)
+    return_url_pages(url, value)
+    save_bd(return_url_pages(url, value), id)
   end
 
   private
 
-  def page_code(url, value)
+  def return_url_pages(url, value)
     url_search = url.parser
     doc = Nokogiri::HTML(url_search.to_s)
     links = doc.css('a.pg')
 
-    search_ids = links.map { |link| link.attribute('href').value.match(/search_id=([^&]+)/)[1] }
+    if links.empty?
+      url = ["#{SEARCH_PAGE}?nm=#{value}"]
+    else
+      search_ids = links.map { |link| link.attribute('href').value.match(/search_id=([^&]+)/)[1] }
 
-    search_ids.map.with_index do |id, index|
-      start = index * 50
-      "#{SEARCH_PAGE}?search_id=#{id}&start=#{start}&nm=#{value}"
+      search_ids.map.with_index do |id, index|
+        start = index * 50
+        "#{SEARCH_PAGE}?search_id=#{id}&start=#{start}&nm=#{value}"
+      end
     end
   end
 
