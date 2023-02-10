@@ -18,11 +18,11 @@ gem "sassc-rails"
 
 gem 'mechanize'
 gem 'will_paginate', '~> 3.3'
-# gem 'rutracker_api'
 
 group :development, :test do
   gem "sqlite3", "~> 1.4"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'dotenv-rails'
 end
 
 group :development do
