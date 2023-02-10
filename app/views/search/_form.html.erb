@@ -2,5 +2,8 @@
   <%= render partial: 'partials/form_errors', locals: { model: @search } %>
   <%= form.label :query, "Search for:" %>
   <%= form.text_field :query %>
-  <%= form.submit "Search" %>
+  <%= form.submit "Search", data: { turbo_frame: dom_id(@search) } %>
+  <div>
+    <%= form.select :sort, ["default", "seeds", "date", "hd"] %>
+  </div>
 <% end %>

@@ -9,12 +9,13 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-
+  
   <div class="text-center p-3">
     <%= render 'form' %>
   </div>
 
   <body>
+    <%= render 'partials/flashes' %>
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,19 @@
+<div class="text-end">
+  <ul class="digg_pagination">
+    <%= will_paginate @searches %>
+  </ul>
+</div>
+<% @searches.each do |link| %>
+  <ul class="list-group-numbered">
+    <li><%= link_to link.name, link.link_forum, class: "link-dark" %>
+      |<%= link_to link.hd, link.link, class: "link-primary" %>|
+      |<%= color_link_seed(link.seeds) %>|
+      |<%= color_link_lychee(link.lychee) %>|
+    </li>
+  </ul>
+<% end %>
+<div class="text-end">
+  <ul class="digg_pagination">
+    <%= will_paginate @searches %>
+  </ul>
+</div>
