@@ -5,32 +5,53 @@ class SearchController < ApplicationController
   def new
     @search = Search.new(params[:query])
   end
-  
+
   def create
     if @search_value.present?
-      redirect_to search_path(@search_value.first.id)
-    else
+      @search_value.update(sort: params.fetch(:search)[:sort])
+      redirect_to search_path(@search_value.first.id), notice: 'Result search'
+    else    
       @search = Search.create_or_find_by(params_search)
+      
       if @search.save
-        redirect_to search_path(@search)
+        redirect_to search_path(@search), notice: 'Result search'
       else
         render :new
       end
     end
+    # if @search_value.empty?
+    #   @search = Search.create_or_find_by(params_search)
+
+    #   if @search.save
+    #     redirect_to search_index_path
+    #   else
+    #     render :new
+    #   end
+    # else
+    #   redirect_to search_index_path
+    # end
   end
 
   def show
-    @searches = @search.torrent_links.paginate(page: params[:page], per_page: 30)
+    order = case @search.sort
+            when 'seeds' then { seeds: :desc }
+            when 'date' then { created_at: :desc }
+            when 'hd' then { hd: :asc }
+            else {}
+            end
+  
+    @searches = @search.torrent_links.order(order).paginate(page: params[:page], per_page: 30)
   end
 
   def index
+    redirect_to root_path
     # @searches = Search.joins(:torrent_links).select("torrent_links.*").paginate(page: params[:page], per_page: 30)
   end
 
   private
 
   def set_search_params
-    @search_value = Search.where("query = ?", (params[:search][:query]).downcase)
+    @search_value = Search.where('query = ?', (params[:search][:query]).downcase)
   end
 
   def set_search
@@ -38,6 +59,6 @@ class SearchController < ApplicationController
   end
 
   def params_search
-    params.require(:search).permit(:query)
+    params.require(:search).permit(:query, :sort)
   end
 end
