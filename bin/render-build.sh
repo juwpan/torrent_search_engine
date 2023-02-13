@@ -2,6 +2,6 @@ set -o errexit
 
 bundle install
 yarn install
-yarn build:css
-yarn build
+bundle exec rake assests:precompile
+bundle exec rake assests:clean
 bundle exec rake db:migrate

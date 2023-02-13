@@ -17,7 +17,7 @@ gem "sassc-rails"
 
 gem 'mechanize'
 gem 'will_paginate', '~> 3.3'
-gem 'pg', '~>1.4.5'
+gem 'pg', '~>1.4.3'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
