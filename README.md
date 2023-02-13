@@ -1,24 +1,84 @@
-# README
+# Приложение "Путеводитель по торрент-трекерам(начальная версия)"
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<div>
+  <a href="https://rubyonrails.org">
+    <img src="https://img.shields.io/badge/Rails-7.0.3-ff0000?logo=RubyonRails&logoColor=white&?style=for-the-badge"
+    alt="Rails badge" />
+  </a>
+  <a href="https://rubyonrails.org">
+    <img src="https://img.shields.io/badge/Ruby-3.1.2-ff0000?logo=Ruby&logoColor=white&?style=for-the-badge"
+    alt="Rails badge" />
+  </a>
+</div>
 
-Things you may want to cover:
+#### "Путеводитель по торрент-трекерам" - поисковик по торрент трекерам
 
-* Ruby version
 
-* System dependencies
+Все очень просто:
 
-* Configuration
+1. Вводим нужные данные в поисковик
+2. Если требуется, выбираем сортировку поиска
+3. Жмём поиск
 
-* Database creation
+---
+### Важно!
+1. В вашей ситеме должен быть установлен менеджер пакетов Yarn или Npm.
+2. Запуск команд производится в консоли вашей опреционой системы.
 
-* Database initialization
+### Пошаговое руководство запуска приложения.
 
-* How to run the test suite
+### Скачать репозиторий:
 
-* Services (job queues, cache servers, search engines, etc.)
+Перейдите в папку, в которую вы хотите скачать исходный код Ruby on Rails, и запустите:
 
-* Deployment instructions
+```
+$ git clone https://github.com/juwpan/torrent_search_engine.git
+```
+```
+$ cd torrent_search_engine
+```
 
-* ...
+### Установка зависимостей
+
+```
+yarn install
+```
+```
+bundle install
+```
+### Запуск миграции
+
+```
+bundle exec rails db:create
+```
+```
+bundle exec rails db:migrate
+```
+
+### Установка стилей
+```
+yarn build:css
+```
+```
+yarn build
+```
+
+### Создание ключей:
+
+В корне папки создайте файл
+```
+.env
+```
+Заполните данные
+
+Вид:
+```
+export ACCOUNT='test_forg'
+export PASSWORD='dedede'
+```
+
+### Запуск приложения
+
+```
+rails s
+```
