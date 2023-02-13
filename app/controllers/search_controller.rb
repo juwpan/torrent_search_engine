@@ -19,17 +19,6 @@ class SearchController < ApplicationController
         render :new
       end
     end
-    # if @search_value.empty?
-    #   @search = Search.create_or_find_by(params_search)
-
-    #   if @search.save
-    #     redirect_to search_index_path
-    #   else
-    #     render :new
-    #   end
-    # else
-    #   redirect_to search_index_path
-    # end
   end
 
   def show
@@ -41,6 +30,10 @@ class SearchController < ApplicationController
             end
   
     @searches = @search.torrent_links.order(order).paginate(page: params[:page], per_page: 30)
+
+    unless @searches.present?
+      redirect_to root_path, alert: 'This query empty'
+    end
   end
 
   def index
