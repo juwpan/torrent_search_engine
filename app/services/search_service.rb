@@ -50,10 +50,12 @@ class SearchService
       doc.css('tr.tCenter.hl-tr').each do |td|
         name = td.at_css('div.t-title').text
         link_forum = td.at_css('div.t-title').at_css('a').attributes['href'].value
-        link = td.at_css('td.tor-size a').attributes['href'].value
+        link_present = td.at_css('td.tor-size a')
+        link = link_present.attributes['href'].value if link_present.present?
         lychees = td.at_css('td.row4.leechmed.bold').text || 0
         seeds = td.at_css('td b.seedmed') ? td.at_css('td b.seedmed').text : 0
-        hd = td.at_css('td.tor-size a').text || 0
+        hd_present = td.at_css('td.tor-size a')
+        hd = hd_present.text || "0" if hd_present.present?
 
         TorrentLink.find_or_create_by(search_id: id,
                                       name:,
