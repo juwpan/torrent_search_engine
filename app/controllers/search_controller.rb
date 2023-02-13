@@ -8,7 +8,7 @@ class SearchController < ApplicationController
 
   def create
     if @search_value.present?
-      @search_value.update(sort: params.fetch(:search)[:sort])
+      @search_value.update_all(sort: params.fetch(:search)[:sort])
       redirect_to search_path(@search_value.first.id), notice: 'Result search'
     else    
       @search = Search.create_or_find_by(params_search)
@@ -31,14 +31,13 @@ class SearchController < ApplicationController
   
     @searches = @search.torrent_links.order(order).paginate(page: params[:page], per_page: 30)
 
-    unless @searches.present?
+    if @searches.nil?
       redirect_to root_path, alert: 'This query empty'
     end
   end
 
   def index
     redirect_to root_path
-    # @searches = Search.joins(:torrent_links).select("torrent_links.*").paginate(page: params[:page], per_page: 30)
   end
 
   private
