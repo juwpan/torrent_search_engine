@@ -21,6 +21,8 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
   adapter: postgresql
   database: torrent_production
+  url: <%= ENV['DATABASE_URL'] %>
