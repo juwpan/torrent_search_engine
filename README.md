@@ -73,8 +73,8 @@ yarn build
 
 Вид:
 ```
-export ACCOUNT='test_forg'
-export PASSWORD='dedede'
+export ACCOUNT='login'
+export PASSWORD='password'
 ```
 
 ### Запуск приложения

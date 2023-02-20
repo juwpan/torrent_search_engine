@@ -13,8 +13,8 @@ class SearchService
   end
 
   def login(value, id)
-    @agent.post(LOGIN_PAGE, login_username: 'test_forg',
-                            login_password: 'dedede', login: 'Вход')
+    @agent.post(LOGIN_PAGE, login_username: ENV['LOGIN'],
+                            login_password: ENV['PASSWORD'], login: 'Вход')
 
     url ||= @agent.get(SEARCH_PAGE, nm: value)
 
