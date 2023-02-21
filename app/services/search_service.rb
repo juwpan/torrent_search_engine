@@ -15,7 +15,7 @@ class SearchService
 
   def initialize
     @agent_rutracker = Mechanize.new
-    # @agent_rustorka = Mechanize.new
+    @agent_rustorka = Mechanize.new
     @agent_nwm = Mechanize.new
   end
   
