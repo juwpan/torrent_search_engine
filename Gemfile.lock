@@ -92,6 +92,8 @@ GEM
       railties (>= 3.2)
     erubi (1.12.0)
     ffi (1.15.5)
+    font-awesome-sass (6.3.0)
+      sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     http-cookie (1.0.5)
@@ -236,6 +238,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   dotenv-rails
+  font-awesome-sass
   jsbundling-rails
   mechanize
   pg (~> 1.4.3)
