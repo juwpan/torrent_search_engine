@@ -1,0 +1,17 @@
+@media (max-width: 770px) {
+  .container {
+    font-size: 15px;
+  }
+
+  ul {
+    margin: 15px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 510px) {
+  .container {
+    font-size: 10px;
+  }
+}
+
