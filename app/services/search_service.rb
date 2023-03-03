@@ -20,16 +20,14 @@ class SearchService
   def login_rutracker(value, id)
     @agent.post(LOGIN_PAGE_RUTRACKER, login_username: Rails.application.credentials.dig(:tracker, :LOGIN),
                                       login_password: Rails.application.credentials.dig(:tracker, :PASSWORD), login: 'Вход')
-    
     url_rutracker ||= @agent.get(SEARCH_PAGE_RUTRACKER, nm: value)
-    
+
     save_bd_rutracker(url_rutracker, id)
   end
 
   def login_nwm(value, id)
     @agent.post(LOGIN_NWM_CLUB, username: Rails.application.credentials.dig(:tracker, :LOGIN),
                                 password: Rails.application.credentials.dig(:tracker, :PASSWORD), login: 'Вход')
-
     url_nwm ||= @agent.get(SEARCH_NWM_CLUB, nm: value)
 
     save_bd_nwm(url_nwm, id)
