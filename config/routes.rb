@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root "search#new"
+  # root "search#search"
 
-  resources :search
+  root "search#root"
+  post '/search', to: 'search#search'
+
+  # resources :search
 end
