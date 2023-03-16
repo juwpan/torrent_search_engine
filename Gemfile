@@ -27,6 +27,10 @@ group :development, :test do
 end
 
 group :development do
+  gem "rack-mini-profiler"
+  gem "spring"
+
+  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
   gem 'bullet'
   gem "web-console"
 end
