@@ -17,41 +17,41 @@ class SearchService
     @agent = agent
   end
 
-  def search_rutracker(value)
+  def search_rutracker(value, sort)
     results ||= Rails.cache.fetch("rutracker_search_#{value}", expires_in: 5.hour) do
-      login_rutracker(value)
+      login_rutracker(value, sort)
     end
   end
 
-  def search_nwm(value)
+  def search_nwm(value, sort)
     results ||= Rails.cache.fetch("nwm_search_#{value}", expires_in: 1.hour) do
-      login_nwm(value)
+      login_nwm(value, sort)
     end
   end
 
   private
 
-  def login_rutracker(value)
+  def login_rutracker(value, sort)
     @agent.post(LOGIN_PAGE_RUTRACKER, login_username: Rails.application.credentials.dig(:tracker, :LOGIN),
                                       login_password: Rails.application.credentials.dig(:tracker, :PASSWORD), login: 'Вход')
     url_rutracker ||= @agent.get(SEARCH_PAGE_RUTRACKER, nm: value)
 
-    result_rutracker(url_rutracker)
+    result_rutracker(url_rutracker, sort)
   end
 
-  def login_nwm(value)
+  def login_nwm(value, sort)
     begin
       @agent.post(LOGIN_NWM_CLUB, username: Rails.application.credentials.dig(:tracker, :LOGIN),
                                 password: Rails.application.credentials.dig(:tracker, :PASSWORD), login: 'Вход')
 
       url_nwm ||= @agent.get(SEARCH_NWM_CLUB, nm: value)
-      result_nwm(url_nwm)
+      result_nwm(url_nwm, sort)
     rescue StandardError => e
       puts "Unknown error: #{e.message}"
     end
   end
 
-  def result_rutracker(url_search)
+  def result_rutracker(url_search, sort)
     url = url_search.parser
     doc = Nokogiri::HTML(url.to_s)
 
@@ -77,10 +77,14 @@ class SearchService
       }
     end
 
-    results
+    if sort == "seeds"
+      results.sort_by! { |result| -result[:seeds].to_i }
+    else
+      results.shuffle
+    end
   end
 
-  def result_nwm(url_search)
+  def result_nwm(url_search, sort)
     url = url_search.parser
     doc = Nokogiri::HTML(url.to_s)
 
@@ -104,6 +108,10 @@ class SearchService
       }
     end
 
-    results
+    if sort == "seeds"
+      results.sort_by! { |result| -result[:seeds].to_i }
+    else
+      results.shuffle
+    end
   end
 end
