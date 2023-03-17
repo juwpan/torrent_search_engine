@@ -11,6 +11,12 @@
           </button>
         </div>
         <div class="text-center">
+          <%= form.collection_radio_buttons :sort, [["default", "Default"], ["seeds", "Seeds"], ["hd", "HD"]], :first, :last do |b| %>
+            <%= b.label class: 'form-check-label' do %>
+              <%= b.radio_button %>
+              <%= b.text %>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
